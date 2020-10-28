@@ -5,35 +5,32 @@
 #include <stdexcept>   // runtime_error
 #include <string>
 #include <vector>
-
-#include "TechnicalServices/Persistence/PersistenceHandler.hpp"
-
-
-
+#include <list>
+#include "Domain/Account/Reward.hpp"
 
 namespace Domain::Account
 {
-  // Import the User Credentials type from the lower layer and publish it as your own
-  using TechnicalServices::Persistence::UserCredentials;
 
-
-  // Library Package within the Domain Layer Abstract class
-  // The AccountHandler abstract class serves as the generalization of all user commands
   class AccountHandler
   {
     public:
+      // Constructors and assignment operations
+      AccountHandler()                                   = default;  // default ctor
+      AccountHandler( const AccountHandler &  original ) = default;  // copy ctor
+      AccountHandler(       AccountHandler && original ) = default;  // move ctor
+
       // Exceptions
       struct AccountException : std::runtime_error {using runtime_error   ::runtime_error;   };
       struct   BadCommand     : AccountException   {using AccountException::AccountException;};
 
       // Object Factory returning a specialized object specific to the specified user and role
-      static std::unique_ptr<AccountHandler> createAccount( const UserCredentials & credentials );
-
+      static std::unique_ptr<AccountHandler> createAccount();
 
       // Operations
-      virtual std::vector<std::string> getCommands   ()                                                                     = 0; // retrieves the list of actions (commands)
-      virtual std::any                 executeCommand( const std::string & command, const std::vector<std::string> & args ) = 0; // Throws BadCommand
-
+      virtual void spendRewardPoints(std::string reward) = 0;
+      virtual int getRewardPointBalance() = 0;
+      virtual void applyRewardToPurchase(std::string reward) = 0;
+      virtual std::list<Domain::Account::Reward *> getOwnedRewards() = 0;
 
       // Destructor
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented
