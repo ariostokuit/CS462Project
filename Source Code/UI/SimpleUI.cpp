@@ -122,7 +122,7 @@ namespace UI
       //   auto results = sessionControl->executeCommand( selectedCommand, parameters );
       //   if( results.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( results ) + '"';
       // }
-      if ( selectedCommand == "Create Shopping Cart")
+      if ( selectedCommand == "Log Off")
       {
         std::vector<std::string> parameters( 0 );
         auto results = sessionControl->executeCommand( selectedCommand, parameters );

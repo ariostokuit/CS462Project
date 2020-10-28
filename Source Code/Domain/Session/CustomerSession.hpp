@@ -24,6 +24,7 @@ namespace Domain::Session
       std::vector<std::string> getCommands() override;  // retrieves the list of actions (commands)
       std::any                 executeCommand( const std::string & command, const std::vector<std::string> & args ) override;
       std::string getRole();
+      void signOff();
 
       // Destructor
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented
@@ -43,14 +44,20 @@ namespace Domain::Session
     _logger << "Customer Session shutdown successfully";
   }
 
-  inline std::string CustomerSession::getRole() {
+  inline std::string CustomerSession::getRole()
+  {
     _logger << "Role is " + role;
     return role;
   }
 
+  inline void CustomerSession::signOff()
+  {
+    _logger << "Signing off of Customer Session";
+  }
+
   inline std::vector<std::string> CustomerSession::getCommands()
   {
-    return { "Log out"};
+    return { "Sign out", "Get Role"};
   }
   inline std::any CustomerSession::executeCommand( const std::string & command, const std::vector<std::string> & args )
   {
