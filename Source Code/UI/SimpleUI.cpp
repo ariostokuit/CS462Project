@@ -8,21 +8,16 @@
 #include <string>      // string, getline()
 #include <vector>
 
-#include "Domain/Library/Books.hpp"    // Include for now - will replace next increment
 #include "Domain/Session/SessionHandler.hpp"
 
 #include "TechnicalServices/Logging/LoggerHandler.hpp"
 #include "TechnicalServices/Persistence/PersistenceHandler.hpp"
 
-
-
-
 namespace UI
 {
   // Default constructor
   SimpleUI::SimpleUI()
-  : _bookHandler   ( std::make_unique<Domain::Library::Books>()                     ),   // will replace these with factory calls in the next increment
-    _loggerPtr     ( TechnicalServices::Logging::LoggerHandler::create()            ),
+  : _loggerPtr     ( TechnicalServices::Logging::LoggerHandler::create()            ),
     _persistentData( TechnicalServices::Persistence::PersistenceHandler::instance() )
   {
     _logger << "Simple UI being used and has been successfully initialized";
@@ -127,102 +122,10 @@ namespace UI
       //   auto results = sessionControl->executeCommand( selectedCommand, parameters );
       //   if( results.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( results ) + '"';
       // }
-      if ( selectedCommand == "Add Product to Shopping Cart" )
+      if ( selectedCommand == "Create Shopping Cart")
       {
-        std::vector<std::string> emptyVector( 0 );
-        std::vector<std::string> parameters( 2 );
-
-        std::cout << "Which product do you want to add to your shopping cart? Please enter the number.\n";
-        // prints out list of products
-        auto productList = sessionControl->executeCommand( "View Products", emptyVector );
-        if( productList.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( productList ) + '"';
-        // Domain::Session::S
-        std::cin >> std::ws;  std::getline( std::cin, parameters[0] );
-
-        std::cout << "How many do you want to add to the shopping cart? ";
-        std::cin >> std::ws;  std::getline( std::cin, parameters[1] );
-        // calls add product
+        std::vector<std::string> parameters( 0 );
         auto results = sessionControl->executeCommand( selectedCommand, parameters );
-        if( results.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( results ) + '"';
-      }
-      else if( selectedCommand == "Remove Product from Shopping Cart" )
-      {
-        std::vector<std::string> emptyVector( 0 );
-        std::vector<std::string> parameters( 2 );
-
-        std::cout << "Which product do you want to remove from your shopping cart? Please enter the number.\n";
-        // prints out products in shopping cart
-        auto shoppingCart = sessionControl->executeCommand( "View Shopping Cart", emptyVector );
-        if( shoppingCart.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( shoppingCart ) + '"';
-        std::cin >> std::ws;  std::getline( std::cin, parameters[0] );
-
-        std::cout << "How many do you want to remove from the shopping cart? ";
-        std::cin >> std::ws;  std::getline( std::cin, parameters[1] );
-        // calls remove product
-        auto results = sessionControl->executeCommand( selectedCommand, parameters );
-        if( results.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( results ) + '"';
-      }
-      else if( selectedCommand == "View Products" )
-      {
-        std::vector<std::string> emptyVector( 0 );
-
-        auto results = sessionControl->executeCommand( selectedCommand, emptyVector );
-        if( results.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( results ) + '"';
-      }
-      else if( selectedCommand == "View Shopping Cart" )
-      {
-        std::vector<std::string> emptyVector( 0 );
-
-        auto results = sessionControl->executeCommand( selectedCommand, emptyVector );
-        if( results.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( results ) + '"';
-      }
-      else if( selectedCommand == "Initiate Checkout" )
-      {
-        std::vector<std::string> emptyVector( 0 );
-
-        auto results = sessionControl->executeCommand( selectedCommand, emptyVector );
-        if( results.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( results ) + '"';
-      }
-      else if( selectedCommand == "Select Delivery Options" )
-      {
-        std::vector<std::string> parameters( 3 );
-
-        std::cout << "How do you want your order to be delivered?\n";
-        std::cout << "1. Pick up at store\n";
-        std::cout << "2. Delivered to specific address\n";
-        std::cin >> std::ws;  std::getline( std::cin, parameters[0] );
-
-        if (parameters[0] == "2") {
-          std::cout << "Enter address to be delivered to: ";
-          std::cin >> std::ws;  std::getline( std::cin, parameters[1] );
-        }
-
-        std::cout << "Enter miscellaneous instructions for delivery: ";
-        std::cin >> std::ws;  std::getline( std::cin, parameters[2] );
-
-        auto results = sessionControl->executeCommand( selectedCommand, parameters );
-        if( results.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( results ) + '"';
-      }
-      else if( selectedCommand == "Pay for Products" )
-      {
-        std::vector<std::string> parameters( 4 );
-
-        std::cout << "How do you want to pay for your order?\n";
-        std::cout << "1. Credit/Debit\n";
-        std::cout << "2. Cash\n";
-        std::cin >> std::ws;  std::getline( std::cin, parameters[0] );
-
-        if (parameters[0] == "1") {
-          std::cout << "Enter your card number: ";
-          std::cin >> std::ws;  std::getline( std::cin, parameters[1] );
-          std::cout << "Enter your CCV number on the back of the card: ";
-          std::cin >> std::ws;  std::getline( std::cin, parameters[2] );
-          std::cout << "Enter the card's expiration date in the format MM/YY: ";
-          std::cin >> std::ws;  std::getline( std::cin, parameters[3] );
-        }
-
-        auto results = sessionControl->executeCommand( selectedCommand, parameters );
-        if( results.has_value() ) _logger << "Received reply: \"" + std::any_cast<const std::string &>( results ) + '"';
       }
       else if( selectedCommand == "Another command" ) /* ... */ {}
 

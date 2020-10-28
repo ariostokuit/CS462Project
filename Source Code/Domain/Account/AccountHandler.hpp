@@ -11,44 +11,39 @@
 
 
 
-namespace Domain::Session
+namespace Domain::Account
 {
   // Import the User Credentials type from the lower layer and publish it as your own
   using TechnicalServices::Persistence::UserCredentials;
 
 
   // Library Package within the Domain Layer Abstract class
-  // The SessionHandler abstract class serves as the generalization of all user commands
-  class SessionHandler
+  // The AccountHandler abstract class serves as the generalization of all user commands
+  class AccountHandler
   {
     public:
-      // Constructors and assignment operations
-      SessionHandler()                                           = default;  // default ctor
-      SessionHandler( const SessionHandler &  original )         = default;  // copy ctor
-      SessionHandler(       SessionHandler && original )         = default;  // move ctor
-
       // Exceptions
-      struct SessionException : std::runtime_error {using runtime_error   ::runtime_error;   };
-      struct   BadCommand     : SessionException   {using SessionException::SessionException;};
+      struct AccountException : std::runtime_error {using runtime_error   ::runtime_error;   };
+      struct   BadCommand     : AccountException   {using AccountException::AccountException;};
 
       // Object Factory returning a specialized object specific to the specified user and role
-      static std::unique_ptr<SessionHandler> createSession( const UserCredentials & credentials );
+      static std::unique_ptr<AccountHandler> createAccount( const UserCredentials & credentials );
 
 
       // Operations
       virtual std::vector<std::string> getCommands   ()                                                                     = 0; // retrieves the list of actions (commands)
       virtual std::any                 executeCommand( const std::string & command, const std::vector<std::string> & args ) = 0; // Throws BadCommand
-      virtual std::string getRole() = 0;
+
 
       // Destructor
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented
-      virtual ~SessionHandler() noexcept = 0;
+      virtual ~AccountHandler() noexcept = 0;
 
 
     protected:
       // Copy assignment operators, protected to prevent mix derived-type assignments
-      SessionHandler & operator=( const SessionHandler &  rhs ) = default;  // copy assignment
-      SessionHandler & operator=(       SessionHandler && rhs ) = default;  // move assignment
+      AccountHandler & operator=( const AccountHandler &  rhs ) = default;  // copy assignment
+      AccountHandler & operator=(       AccountHandler && rhs ) = default;  // move assignment
 
-  };    // class SessionHandler
-} // namespace Domain::Session
+  };    // class AccountHandler
+} // namespace Domain::Account

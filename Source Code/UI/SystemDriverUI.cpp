@@ -1,10 +1,10 @@
 #include "UI/SystemDriverUI.hpp"
 
 #include "Domain/Session/SessionHandler.hpp"
-
+// #include "Domain/Session/CustomerSession.hpp"
 #include "TechnicalServices/Logging/LoggerHandler.hpp"
 
-
+#include "Domain/ShoppingCart/ShoppingCartHandler.hpp"
 
 
 namespace UI
@@ -32,11 +32,18 @@ namespace UI
   void SystemDriverUI::launch()
   {
     {
-      _logger << "Starting scenario 1: Checkout Book";
+      _logger << "Starting scenario 1: Purchase Products";
 
-      auto session  = Domain::Session::SessionHandler::createSession( {"Tom", "CPSC 462 Rocks!", {"Borrower"}} );
-      auto commands = session->getCommands();
-      auto results  = session->executeCommand( "Checkout Book", {"Applied UML and Patterns", "Larman", "0-13-148906-2"} );
+      auto session    = Domain::Session::SessionHandler::createSession( {"James", "Vu", {"Customer"}} );
+      auto role = session->getRole();
+      if (role == "Customer") {
+        auto cart   = Domain::ShoppingCart::ShoppingCartHandler::createShoppingCart();
+        cart->addProduct("Pizza", 1);
+        auto order = cart->initiateCheckout();
+        order->orderInstruction("123 Street", "Keep warm");
+        auto total = order->getTotal();
+        order->makePayment(1234, "12/06", 567);
+      }
       //session->singOff();
 
       _logger << "Completed scenario 1";

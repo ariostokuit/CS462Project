@@ -1,36 +1,36 @@
-#include "Domain/Session/SessionHandler.hpp"
+#include "Domain/Account/AccountHandler.hpp"
 
 #include <algorithm>    // std::any_of()
 #include <memory>       // unique_ptr, make_unique<>()
 #include <stdexcept>    // logic_error
 #include <string>
 
-#include "Domain/Session/CustomerSession.hpp"
+#include "Domain/Account/Account.hpp"
 
 #include "TechnicalServices/Persistence/PersistenceHandler.hpp"
 
 
 
 
-namespace Domain::Session
+namespace Domain::Account
 {
-  SessionHandler::~SessionHandler() noexcept = default;
+  AccountHandler::~AccountHandler() noexcept = default;
 
 
 
 
   // returns a specialized object specific to the specified role
-  std::unique_ptr<SessionHandler> SessionHandler::createSession( const UserCredentials & credentials )
+  std::unique_ptr<AccountHandler> AccountHandler::createAccount( const UserCredentials & credentials )
   {
     // Just as a smart defensive strategy, one should verify this role is one of the roles in the DB's legal value list.  I'll come
     // back to that
 
-    // This is a good example of a Factory - the function takes the "order" (role) and builds the "product" (session) to fulfill the
-    // order. This, however, still leaks knowledge of the kinds of sessions to the client, after all the client needs to specify
+    // This is a good example of a Factory - the function takes the "order" (role) and builds the "product" (Account) to fulfill the
+    // order. This, however, still leaks knowledge of the kinds of Accounts to the client, after all the client needs to specify
     // with role.
 
     // ToDo: Make this an Abstract Factory by:
-    //  1) removing the parameter from the function's signature :  std::unique_ptr<SessionHandler>  SessionHandler::createSession();
+    //  1) removing the parameter from the function's signature :  std::unique_ptr<AccountHandler>  AccountHandler::createAccount();
     //  2) read the role from a proprieties files or (preferred) look up the role in the persistent data
 
     // Authenticate the requester
@@ -50,11 +50,11 @@ namespace Domain::Session
                         )
         )
       {
-        // 2) If authenticated user is authorized for the selected role, create a session specific for that role
-        if( credentials.roles[0] == "Customer"      ) return std::make_unique<Domain::Session::CustomerSession>     ();
-        // if( credentials.roles[0] == "Store Employee"     ) return std::make_unique<Domain::Session::StoreEmployeeSession>    ( credentials );
-        // if( credentials.roles[0] == "IT Employee" ) return std::make_unique<Domain::Session::ITEmployeeSession>( credentials );
-        // if( credentials.roles[0] == "Corporate Employee"    ) return std::make_unique<Domain::Session::CorporateEmployeeSession>   ( credentials );
+        // 2) If authenticated user is authorized for the selected role, create a Account specific for that role
+        if( credentials.roles[0] == "Customer"      ) return std::make_unique<Domain::Account::CustomerAccount>     ( credentials );
+        if( credentials.roles[0] == "Store Employee"     ) return std::make_unique<Domain::Account::StoreEmployeeAccount>    ( credentials );
+        if( credentials.roles[0] == "IT Employee" ) return std::make_unique<Domain::Account::ITEmployeeAccount>( credentials );
+        if( credentials.roles[0] == "Corporate Employee"    ) return std::make_unique<Domain::Account::CorporateEmployeeAccount>   ( credentials );
 
         throw std::logic_error( "Invalid role requested in function " + std::string(__func__) ); // Oops, should never get here but ...  Throw something
       }
@@ -63,4 +63,4 @@ namespace Domain::Session
 
     return nullptr;
   }
-} // namespace Domain::Session
+} // namespace Domain::Account
