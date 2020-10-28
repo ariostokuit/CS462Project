@@ -55,8 +55,8 @@ namespace Domain::Account
 
   inline int CustomerAccount::getRewardPointBalance()
   {
-    _logger << "Responding to spendRewardPoints request with parameters: ";
-    _logger << "Current Reward Point Balance: " + _rewardPoints;
+    _logger << "Responding to getRewardPointBalance request with parameters: ";
+    _logger << "Current Reward Point Balance: " + std::to_string(_rewardPoints);
     return _rewardPoints;
   }
 
@@ -69,7 +69,7 @@ namespace Domain::Account
 
   inline std::list<Domain::Account::Reward *> CustomerAccount::getOwnedRewards()
   {
-    _logger << "Responding to getRewards request with parameters: ";
+    _logger << "Responding to getOwnedRewards request with parameters: ";
     _logger << "You have a basic reward";
     return _ownedRewards;
   }
