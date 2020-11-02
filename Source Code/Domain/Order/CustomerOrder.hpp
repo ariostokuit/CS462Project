@@ -28,7 +28,7 @@ namespace Domain::Order
       // Operations
       double getTotal();
       void orderInstruction(std::string address, std::string instructions);
-      void makePayment(int cardNumber, std::string expirationDate, int ccvNumber);
+      std::string makePayment(int cardNumber, std::string expirationDate, int ccvNumber);
       // Destructor
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented
       ~CustomerOrder() noexcept override;
@@ -78,11 +78,10 @@ namespace Domain::Order
     return;
   }
 
-  inline void CustomerOrder::makePayment(int cardNumber, std::string expirationDate, int ccvNumber)
+  inline std::string CustomerOrder::makePayment(int cardNumber, std::string expirationDate, int ccvNumber)
   {
     _logger << "Responding to makePayment request with parameters: " + std::to_string(cardNumber) + ", " + expirationDate + ", " + std::to_string(ccvNumber);
-    _logger << "Payment successfully made";
-    return;
+    return "Payment successfully made";
   }
 
 } // namespace Domain::Library

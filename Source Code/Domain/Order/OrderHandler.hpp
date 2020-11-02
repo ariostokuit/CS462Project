@@ -29,7 +29,7 @@ namespace Domain::Order
       // Operations
       virtual double getTotal() = 0;
       virtual void orderInstruction(std::string address, std::string instructions) = 0;
-      virtual void makePayment(int cardNumber, std::string expirationDate, int ccvNumber) = 0;
+      virtual std::string makePayment(int cardNumber, std::string expirationDate, int ccvNumber) = 0;
 
       // Destructor
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented

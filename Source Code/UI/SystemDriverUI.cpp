@@ -33,31 +33,23 @@ namespace UI
       _logger << "Starting scenario 1: Purchase Products";
 
       auto session = Domain::Session::SessionHandler::createSession( {"James", "Vu", {"Customer"}} );
-      auto role    = session->getRole();
-      if (role == "Customer") {
-        auto cart  = Domain::ShoppingCart::ShoppingCartHandler::createShoppingCart();
+      auto cart    = Domain::ShoppingCart::ShoppingCartHandler::createShoppingCart();
                      cart->addProduct("Pizza", 1);
-        auto order = cart->initiateCheckout();
+      auto order   = cart->initiateCheckout();
                      order->orderInstruction("123 Street", "Keep warm");
-        auto total = order->getTotal();
+      auto total   = order->getTotal();
                      order->makePayment(1234, "12/06", 567);
-      }
-      //session->signOff();
-
+      // session->signOff();
       _logger << "Completed scenario 1";
 
       _logger << "Starting scenario 2: Manage Reward Points";
       auto session2 = Domain::Session::SessionHandler::createSession( {"James", "Vu", {"Customer"}} );
-      auto role2    = session2->getRole();
-      if (role2 == "Customer") {
-        // auto cart2    = Domain::ShoppingCart::ShoppingCartHandler::createShoppingCart();
-        auto account2 = Domain::Account::AccountHandler::createAccount();
-        auto balance2 = account2->getRewardPointBalance();
-                        account2->spendRewardPoints("Basic Reward");
-        auto rewards2 = account2->getOwnedRewards();
-                        account2->applyRewardToPurchase("Basic Reward");
-      }
-      //session->signOff();
+      auto account2 = Domain::Account::AccountHandler::createAccount();
+      auto balance2 = account2->getRewardPointBalance();
+                      account2->spendRewardPoints("Basic Reward");
+      auto rewards2 = account2->getOwnedRewards();
+                      account2->applyRewardToPurchase("Basic Reward");
+      // session2->signOff();
       _logger << "Completed scenario 2";
     }
   }

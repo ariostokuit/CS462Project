@@ -22,7 +22,7 @@ namespace Domain::Account
       }
 
       // Operations
-      void spendRewardPoints(std::string reward);
+      std::string spendRewardPoints(std::string reward);
       int  getRewardPointBalance();
       void applyRewardToPurchase(std::string reward);
       std::list<Domain::Account::Reward *> getOwnedRewards();
@@ -45,12 +45,16 @@ namespace Domain::Account
     _logger << "Customer Account shutdown successfully";
   }
 
-  inline void CustomerAccount::spendRewardPoints(std::string reward)
+  inline std::string CustomerAccount::spendRewardPoints(std::string reward)
   {
-    // if reward == "something" _ownedRewards.push_back(new Reward)
+    if (reward == "Basic Reward") {
+      _rewardPoints -= 100;
+      Domain::Account::BasicReward *basic = new Domain::Account::BasicReward();
+      _ownedRewards.push_back(basic);
+    }
     _logger << "Responding to spendRewardPoints request with parameters: " + reward;
     _logger << "Added " + reward + " to owned rewards list";
-    return;
+    return "You got a " + reward + ". " + std::to_string(_rewardPoints) + " reward points remaining.";
   }
 
   inline int CustomerAccount::getRewardPointBalance()

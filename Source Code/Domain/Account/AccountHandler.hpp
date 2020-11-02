@@ -27,7 +27,7 @@ namespace Domain::Account
       static std::unique_ptr<AccountHandler> createAccount();
 
       // Operations
-      virtual void spendRewardPoints(std::string reward) = 0;
+      virtual std::string spendRewardPoints(std::string reward) = 0;
       virtual int getRewardPointBalance() = 0;
       virtual void applyRewardToPurchase(std::string reward) = 0;
       virtual std::list<Domain::Account::Reward *> getOwnedRewards() = 0;
