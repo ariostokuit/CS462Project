@@ -36,20 +36,20 @@ namespace UI
       auto cart    = Domain::ShoppingCart::ShoppingCartHandler::createShoppingCart();
                      cart->addProduct("Pizza", 1);
       auto order   = cart->initiateCheckout();
-                     order->orderInstruction("123 Street", "Keep warm");
-      auto total   = order->getTotal();
-                     order->makePayment(1234, "12/06", 567);
-      // session->signOff();
+                     order->setOrderInstruction("123 Street", "Keep warm");
+      auto total   = order->calculateTotal();
+      auto message = order->makePayment(1234, "12/06", 567);
+      session->signOff();
       _logger << "Completed scenario 1";
 
       _logger << "Starting scenario 2: Manage Reward Points";
-      auto session2 = Domain::Session::SessionHandler::createSession( {"James", "Vu", {"Customer"}} );
-      auto account2 = Domain::Account::AccountHandler::createAccount();
-      auto balance2 = account2->getRewardPointBalance();
-                      account2->spendRewardPoints("Basic Reward");
-      auto rewards2 = account2->getOwnedRewards();
+      auto session2  = Domain::Session::SessionHandler::createSession( {"James", "Vu", {"Customer"}} );
+      auto account2  = Domain::Account::AccountHandler::createAccount();
+      auto balance2  = account2->getRewardPointBalance();
+      auto messsage2 = account2->spendRewardPoints("Basic Reward");
+      auto rewards2  = account2->getOwnedRewards();
                       account2->applyRewardToPurchase("Basic Reward");
-      // session2->signOff();
+      session2->signOff();
       _logger << "Completed scenario 2";
     }
   }

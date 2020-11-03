@@ -70,6 +70,7 @@ namespace Domain::ShoppingCart
 
   inline std::unique_ptr<Domain::Order::OrderHandler> CustomerShoppingCart::initiateCheckout()
   {
+    _logger << "Responding to initiateCheckout request with parameters: ";
     auto order = Domain::Order::OrderHandler::createOrder(_cart);
     return order;
   }

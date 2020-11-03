@@ -27,8 +27,8 @@ namespace Domain::Order
       static std::unique_ptr<OrderHandler> createOrder(std::list<Domain::ShoppingCart::Product *> cart);
 
       // Operations
-      virtual double getTotal() = 0;
-      virtual void orderInstruction(std::string address, std::string instructions) = 0;
+      virtual double calculateTotal() = 0;
+      virtual void setOrderInstruction(std::string address, std::string instructions) = 0;
       virtual std::string makePayment(int cardNumber, std::string expirationDate, int ccvNumber) = 0;
 
       // Destructor

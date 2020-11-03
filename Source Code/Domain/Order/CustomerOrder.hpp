@@ -26,8 +26,8 @@ namespace Domain::Order
       }
 
       // Operations
-      double getTotal();
-      void orderInstruction(std::string address, std::string instructions);
+      double calculateTotal();
+      void setOrderInstruction(std::string address, std::string instructions);
       std::string makePayment(int cardNumber, std::string expirationDate, int ccvNumber);
       // Destructor
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented
@@ -55,8 +55,9 @@ namespace Domain::Order
     _logger << "Customer Order shutdown successfully";
   }
 
-  inline double CustomerOrder::getTotal()
+  inline double CustomerOrder::calculateTotal()
   {
+    _logger << "Responding to calculateTotal request with parameters: ";
     _total = 0.0;
     if (_delivery) { _total += _deliveryFee; }
     _total += _subtotal;
@@ -65,7 +66,7 @@ namespace Domain::Order
     return _total;
   }
 
-  inline void CustomerOrder::orderInstruction(std::string address, std::string instructions)
+  inline void CustomerOrder::setOrderInstruction(std::string address, std::string instructions)
   {
     _address      = address;
     // address is not empty, make delivery true
@@ -81,7 +82,10 @@ namespace Domain::Order
   inline std::string CustomerOrder::makePayment(int cardNumber, std::string expirationDate, int ccvNumber)
   {
     _logger << "Responding to makePayment request with parameters: " + std::to_string(cardNumber) + ", " + expirationDate + ", " + std::to_string(ccvNumber);
-    return "Payment successfully made";
+
+    std::string results =  "Payment successfully made";
+    _logger << "Responding with: " + results;
+    return results;
   }
 
 } // namespace Domain::Library

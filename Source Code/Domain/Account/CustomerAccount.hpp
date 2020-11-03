@@ -54,7 +54,10 @@ namespace Domain::Account
     }
     _logger << "Responding to spendRewardPoints request with parameters: " + reward;
     _logger << "Added " + reward + " to owned rewards list";
-    return "You got a " + reward + ". " + std::to_string(_rewardPoints) + " reward points remaining.";
+
+    std::string results = "You got a " + reward + ". " + std::to_string(_rewardPoints) + " reward points remaining.";
+    _logger << "Responding with: " + results;
+    return results;
   }
 
   inline int CustomerAccount::getRewardPointBalance()
