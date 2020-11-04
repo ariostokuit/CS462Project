@@ -74,7 +74,7 @@ namespace Domain::Order
       _delivery = true;
     }
     _instructions = instructions;
-    _logger << "Responding to orderInstruction request with parameters: " + address + ", " + instructions;
+    _logger << "Responding to setOrderInstruction request with parameters: " + address + ", " + instructions;
     _logger << "Order instructions received";
     return;
   }
