@@ -32,7 +32,7 @@ namespace Domain::Session
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented
       ~CustomerSession() noexcept override;
     private:
-      std::string role = "Customer";
+      // std::string role = "Customer";
       std::shared_ptr<TechnicalServices::Logging::LoggerHandler> _loggerPtr = TechnicalServices::Logging::LoggerHandler::create();
       TechnicalServices::Logging::LoggerHandler &                _logger    = *_loggerPtr;
       // std::unique_ptr<Domain::ShoppingCart::ShoppingCartHandler> _cart  = Domain::ShoppingCart::ShoppingCartHandler::createShoppingCart();
