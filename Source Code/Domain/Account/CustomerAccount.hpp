@@ -25,7 +25,7 @@ namespace Domain::Account
       std::string spendRewardPoints(std::string reward);
       int  getRewardPointBalance();
       void applyRewardToPurchase(std::string reward);
-      std::list<Domain::Account::Reward *> getOwnedRewards();
+      std::vector<std::string> getOwnedRewards();
 
       // Destructor
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented
@@ -74,10 +74,12 @@ namespace Domain::Account
     return;
   }
 
-  inline std::list<Domain::Account::Reward *> CustomerAccount::getOwnedRewards()
+  inline std::vector<std::string> CustomerAccount::getOwnedRewards()
   {
     _logger << "Responding to getOwnedRewards request with parameters: ";
-    _logger << "You have a basic reward";
-    return _ownedRewards;
+    _logger << "You have a Basic Reward";
+    std::vector<std::string> results;
+    results.push_back("Basic Reward");
+    return results;
   }
 } // namespace Domain::Library

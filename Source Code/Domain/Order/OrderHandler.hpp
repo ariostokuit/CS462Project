@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #include <list>
-#include "Domain/ShoppingCart/Product.hpp"
 
 namespace Domain::Order
 {
@@ -24,7 +23,7 @@ namespace Domain::Order
       struct   BadCommand     : OrderException   {using OrderException::OrderException;};
 
       // Object Factory returning a specialized object specific to the specified user and role
-      static std::unique_ptr<OrderHandler> createOrder(std::list<Domain::ShoppingCart::Product *> cart);
+      static std::unique_ptr<OrderHandler> createOrder(std::vector<std::string> cart);
 
       // Operations
       virtual double calculateTotal() = 0;

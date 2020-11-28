@@ -16,11 +16,20 @@ namespace Domain::Order
   {
     public:
       // using OrderHandler::OrderHandler;  // inherit constructors
-      CustomerOrder(std::list<Domain::ShoppingCart::Product *> cart) {
+      CustomerOrder(std::vector<std::string> cart) {
         _logger << "Customer Order being used and has been successfully initialized";
         _subtotal = 0;
         for (auto it = cart.begin(); it != cart.end(); ++it) {
-          _subtotal += (*it)->getPrice();
+          if (*it == "Pizza") {
+            _subtotal += 10;
+          } else if (*it == "Breadstick") {
+            _subtotal += 5;
+          } else if (*it == "Coca Cola") {
+            _subtotal += 1;
+          } else {
+            _logger << *it + " is not a product";
+          }
+
         }
         _tax = _subtotal * _taxrate;
       }

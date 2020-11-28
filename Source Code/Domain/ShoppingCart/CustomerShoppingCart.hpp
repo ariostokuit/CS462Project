@@ -71,7 +71,11 @@ namespace Domain::ShoppingCart
   inline std::unique_ptr<Domain::Order::OrderHandler> CustomerShoppingCart::initiateCheckout()
   {
     _logger << "Responding to initiateCheckout request with parameters: ";
-    auto order = Domain::Order::OrderHandler::createOrder(_cart);
+    std::vector<std::string> prodNames;
+    for (auto it = _cart.begin(); it != _cart.end(); ++it) {
+      prodNames.push_back((*it)->getName());
+    }
+    auto order = Domain::Order::OrderHandler::createOrder(prodNames);
     return order;
   }
 

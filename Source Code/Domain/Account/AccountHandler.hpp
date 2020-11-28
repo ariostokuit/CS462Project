@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #include <list>
-#include "Domain/Account/Reward.hpp"
 
 namespace Domain::Account
 {
@@ -30,7 +29,7 @@ namespace Domain::Account
       virtual std::string spendRewardPoints(std::string reward) = 0;
       virtual int getRewardPointBalance() = 0;
       virtual void applyRewardToPurchase(std::string reward) = 0;
-      virtual std::list<Domain::Account::Reward *> getOwnedRewards() = 0;
+      virtual std::vector<std::string> getOwnedRewards() = 0;
 
       // Destructor
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented
