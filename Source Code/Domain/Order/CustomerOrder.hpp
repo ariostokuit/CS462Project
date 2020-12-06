@@ -9,6 +9,8 @@
 #include "TechnicalServices/Logging/LoggerHandler.hpp"
 #include "Domain/Order/OrderHandler.hpp"
 #include "Domain/ShoppingCart/Product.hpp"
+#include "TechnicalServices/Persistence/PersistenceHandler.hpp"
+#include "TechnicalServices/Payment/PaymentHandler.hpp"
 
 namespace Domain::Order
 {
@@ -92,8 +94,17 @@ namespace Domain::Order
   {
     _logger << "Responding to makePayment request with parameters: " + std::to_string(cardNumber) + ", " + expirationDate + ", " + std::to_string(ccvNumber);
 
-    std::string results =  "Payment successfully made";
-    _logger << "Responding with: " + results;
+    auto PaymentPtr = TechnicalServices::Payment::PaymentHandler::create();
+    auto & payment  = *PaymentPtr;
+    bool result = payment.executePayment(cardNumber, expirationDate, ccvNumber);
+    std::string results =  "";
+    if (result) {
+      _logger << "Responding with: Payment successfully made";
+      results =  "Payment successfully made";
+    } else {
+      _logger << "Responding with: Payment failed";
+      results =  "Payment failed";
+    }
     return results;
   }
 

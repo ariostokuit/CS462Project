@@ -14,3 +14,8 @@
 // =  "Pizza CocaCola"            Pizza, CocaCola
 // =  "Breadstick CocaCola"       Breadstick, CocaCola
 "Component.Product" = "All"
+
+// =  Component.Payment Legal options:
+// =  "Visa"                   Visa Card
+// =  "American Express"       American Express Card
+"Component.Payment" = "Visa"

@@ -77,7 +77,9 @@ namespace TechnicalServices::Persistence
                           {"Component.Product",   "CocaCola"},
                           {"Component.Product",   "Pizza Breadstick"},
                           {"Component.Product",   "Pizza CocaCola"},
-                          {"Component.Product",   "Breadstick CocaCola"}
+                          {"Component.Product",   "Breadstick CocaCola"},
+                          {"Component.Payment",   "Visa"},
+                          {"Component.Payment",   "American Express"}
                         };
     }
   }
