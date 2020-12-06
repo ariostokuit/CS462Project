@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "TechnicalServices/Payment/PaymentHandler.hpp"
 #include "TechnicalServices/Logging/SimpleLogger.hpp"
@@ -12,7 +13,8 @@ namespace TechnicalServices::Payment
   {
     public:
       //Constructors
-      AmericanExpressPayment() {
+      AmericanExpressPayment() : _loggerPtr( std::make_unique<TechnicalServices::Logging::SimpleLogger>() )
+      {
         _logger << "AmericanExpress Payment being used and has been successfully initialized";
       }
 
@@ -35,12 +37,12 @@ namespace TechnicalServices::Payment
 
   inline AmericanExpressPayment::~AmericanExpressPayment() noexcept
   {
-    _logger << "AmericanExpress Payment shutdown successfully";
+    _logger << "American Express Payment shutdown successfully";
   }
 
   inline bool AmericanExpressPayment::executePayment( const int cardNumber, const std::string expirationDate, const int ccvNumber )
   {
-    _logger << "AmericanExpress Payment successfully executed";
+    _logger << "American Express Payment successfully executed";
     return true;
   }
 } // namespace TechnicalServices::Payment
