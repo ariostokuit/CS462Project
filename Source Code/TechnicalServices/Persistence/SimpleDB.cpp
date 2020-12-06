@@ -69,8 +69,15 @@ namespace TechnicalServices::Persistence
     {
       _adaptablePairs = { /* KEY */               /* Value*/
                           {"Component.Logger",    "Simple Logger"},
-                          {"Component.UI",        "Simple UI"}
-//                        {"Component.UI",        "Contracted UI"}
+                          {"Component.UI",        "Simple UI"},
+                       // {"Component.UI",        "Contracted UI"},
+                          {"Component.Product",   "All"},
+                          {"Component.Product",   "Pizza"},
+                          {"Component.Product",   "Breadstick"},
+                          {"Component.Product",   "CocaCola"},
+                          {"Component.Product",   "Pizza Breadstick"},
+                          {"Component.Product",   "Pizza CocaCola"},
+                          {"Component.Product",   "Breadstick CocaCola"}
                         };
     }
   }

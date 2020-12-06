@@ -34,6 +34,7 @@ namespace UI
 
       auto session = Domain::Session::SessionHandler::createSession( {"James", "Vu", {"Customer"}} );
       auto cart    = Domain::ShoppingCart::ShoppingCartHandler::createShoppingCart();
+                     cart->viewProducts();
                      cart->addProduct("Pizza", 1);
       auto order   = cart->initiateCheckout();
                      order->setOrderInstruction("123 Street", "Keep warm");

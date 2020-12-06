@@ -28,6 +28,7 @@ namespace Domain::ShoppingCart
       // Operations
       virtual void addProduct(std::string product, int quantity) = 0;
       virtual void removeProduct(std::string product, int quantity) = 0;
+      virtual std::vector<std::string> viewProducts() = 0;
       virtual std::unique_ptr<Domain::Order::OrderHandler> initiateCheckout() = 0;
 
       // Destructor

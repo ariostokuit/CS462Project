@@ -4,3 +4,13 @@
 // =     "Simple UI"             Interactive console
 // =     "Contracted UI"         Scenario driver with no user interaction
 "Component.UI" = "Contracted UI"
+
+// =  Component.Product Legal options:
+// =  "All"                       Pizza, Breadstick, CocaCola
+// =  "Pizza"                     Pizza
+// =  "Breadstick"                Breadstick
+// =  "CocaCola"                  CocaCola
+// =  "Pizza Breadstick"          Pizza, Breadstick
+// =  "Pizza CocaCola"            Pizza, CocaCola
+// =  "Breadstick CocaCola"       Breadstick, CocaCola
+"Component.Product" = "All"

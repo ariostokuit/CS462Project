@@ -11,6 +11,7 @@
 #include "Domain/ShoppingCart/ShoppingCartHandler.hpp"
 #include "Domain/ShoppingCart/Product.hpp"
 #include "Domain/Order/OrderHandler.hpp"
+#include "TechnicalServices/Persistence/PersistenceHandler.hpp"
 
 namespace Domain::ShoppingCart
 {
@@ -25,6 +26,7 @@ namespace Domain::ShoppingCart
       // Operations
       void addProduct(std::string product, int quantity);
       void removeProduct(std::string product, int quantity);
+      std::vector<std::string> viewProducts();
       std::unique_ptr<Domain::Order::OrderHandler> initiateCheckout();
       // Destructor
       // Pure virtual destructor helps force the class to be abstract, but must still be implemented
@@ -66,6 +68,36 @@ namespace Domain::ShoppingCart
   inline void CustomerShoppingCart::removeProduct(std::string product, int quantity)
   {
     return;
+  }
+
+  inline std::vector<std::string> CustomerShoppingCart::viewProducts()
+  {
+    std::vector<std::string> productList = {};
+    auto & persistantData = TechnicalServices::Persistence::PersistenceHandler::instance();
+    auto requestedProductList = persistantData["Component.Product"];
+    _logger << "Responding to viewProducts request with parameters: ";
+    _logger << "Product list:";
+    if ( requestedProductList == "All") {
+      productList.push_back("Pizza");      _logger << "Pizza";
+      productList.push_back("Breadstick"); _logger << "Breadstick";
+      productList.push_back("CocaCola");   _logger << "CocaCola";
+    } else if ( requestedProductList == "Pizza") {
+      productList.push_back("Pizza");      _logger << "Pizza";
+    } else if ( requestedProductList == "Breadstick") {
+      productList.push_back("Breadstick"); _logger << "Breadstick";
+    } else if ( requestedProductList == "CocaCola") {
+      productList.push_back("CocaCola");   _logger << "CocaCola";
+    } else if ( requestedProductList == "Pizza Breadstick") {
+      productList.push_back("Pizza");      _logger << "Pizza";
+      productList.push_back("Breadstick"); _logger << "Breadstick";
+    } else if ( requestedProductList == "Pizza CocaCola") {
+      productList.push_back("Pizza");      _logger << "Pizza";
+      productList.push_back("CocaCola");   _logger << "CocaCola";
+    } else if ( requestedProductList == "Breadstick CocaCola") {
+      productList.push_back("Breadstick"); _logger << "Breadstick";
+      productList.push_back("CocaCola");   _logger << "CocaCola";
+    }
+    return productList;
   }
 
   inline std::unique_ptr<Domain::Order::OrderHandler> CustomerShoppingCart::initiateCheckout()
