@@ -108,6 +108,8 @@ namespace Domain::ShoppingCart
       prodNames.push_back((*it)->getName());
     }
     auto order = Domain::Order::OrderHandler::createOrder(prodNames);
+    _cart.clear();
+    _logger << "Cart is emptied";
     return order;
   }
 
