@@ -49,15 +49,15 @@ namespace Domain::ShoppingCart
   {
     if (product == "Pizza") {
       for (unsigned int i = 0; i < quantity; ++i) {
-        _cart.push_back(new Domain::ShoppingCart::Pizza());
+        _cart.push_back(PizzaFactory::createProduct());
       }
     } else if (product == "Breadstick") {
       for (unsigned int i = 0; i < quantity; ++i) {
-        _cart.push_back(new Domain::ShoppingCart::Breadstick());
+        _cart.push_back(BreadstickFactory::createProduct());
       }
     } else if (product == "Coca Cola") {
       for (unsigned int i = 0; i < quantity; ++i) {
-        _cart.push_back(new Domain::ShoppingCart::CocaCola());
+        _cart.push_back(CocaColaFactory::createProduct());
       }
     }
     _logger << "Responding to addProduct request with parameters: " + product + ", " + std::to_string(quantity);
