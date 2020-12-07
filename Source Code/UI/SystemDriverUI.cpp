@@ -40,7 +40,7 @@ namespace UI
                          order->setOrderInstruction("123 Street", "Keep warm");
       auto total       = order->calculateTotal();
       auto message     = order->makePayment(1234, "12/06", 567);
-      session->signOff();
+                         session->signOff();
       _logger << "Completed scenario 1";
 
       _logger << "Starting scenario 2: Manage Reward Points";

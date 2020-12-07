@@ -10,6 +10,9 @@
 #include "TechnicalServices/Logging/LoggerHandler.hpp"
 #include "Domain/ShoppingCart/ShoppingCartHandler.hpp"
 #include "Domain/ShoppingCart/Product.hpp"
+#include "Domain/ShoppingCart/Pizza.hpp"
+#include "Domain/ShoppingCart/Breadstick.hpp"
+#include "Domain/ShoppingCart/CocaCola.hpp"
 #include "Domain/Order/OrderHandler.hpp"
 #include "TechnicalServices/Persistence/PersistenceHandler.hpp"
 
@@ -48,15 +51,15 @@ namespace Domain::ShoppingCart
   inline void CustomerShoppingCart::addProduct(std::string product, int quantity)
   {
     if (product == "Pizza") {
-      for (unsigned int i = 0; i < quantity; ++i) {
+      for (int i = 0; i < quantity; ++i) {
         _cart.push_back(PizzaFactory::createProduct());
       }
     } else if (product == "Breadstick") {
-      for (unsigned int i = 0; i < quantity; ++i) {
+      for (int i = 0; i < quantity; ++i) {
         _cart.push_back(BreadstickFactory::createProduct());
       }
     } else if (product == "Coca Cola") {
-      for (unsigned int i = 0; i < quantity; ++i) {
+      for (int i = 0; i < quantity; ++i) {
         _cart.push_back(CocaColaFactory::createProduct());
       }
     }
